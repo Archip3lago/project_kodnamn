@@ -1,0 +1,9 @@
+Login/register - vanlig användare + admin
+
+Admin - redigera/ta bort/ lägg till produkter/nyheter
+
+Produktregister - sortera med pris + namn + märke + sök + typ(byxor/tröjer)
+
+Kundvagn - ta bort/ lägg till - se totalt pris
+
+(nyheter) - ifall man orkar / hinner
