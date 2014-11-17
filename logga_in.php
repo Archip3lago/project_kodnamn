@@ -36,7 +36,6 @@ and open the template in the editor.
                 $tmp_username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
                 $tmp_password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
                 //Matcher både användarnamn och lösenord någon del i databasen, skickas värden tillbaks till $users variabeln
-                if()
                 $sql = "SELECT * FROM users WHERE username=:username AND password=:password";
                 $stmt = $dbh->prepare($sql);
                 $stmt->bindParam(":username", $tmp_username);
