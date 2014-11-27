@@ -1,9 +1,11 @@
 Login/register - vanlig användare + admin
+Klar
+___________________________________________
 
-Admin - redigera/ta bort/ lägg till produkter/nyheter
+1. Produktregister - sortera med pris + namn + märke + sök + typ(byxor/tröjer) + id
 
-Produktregister - sortera med pris + namn + märke + sök + typ(byxor/tröjer)
+2. Admin - redigera/ta bort/ lägg till produkter/nyheter
 
-Kundvagn - ta bort/ lägg till - se totalt pris
+3. Kundvagn - ta bort/ lägg till - se totalt pris
 
-(nyheter) - ifall man orkar / hinner
+4. (nyheter) - ifall man orkar / hinner

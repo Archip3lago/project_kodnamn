@@ -11,15 +11,21 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-
         //Finns inte sessionen inloggad, körs kod nedan
         if (!isset($_SESSION["inloggad"])) {
-            
+
             //Har man skrivit in data i registreringsformuläret, körs koden nedan
             if (isset($_POST["username_reg"]) and isset($_POST["password_reg"])) {
                 //Ser till så att man inte sparar js/css/php/sql kod i databasen och sparar värdena i temporära variabler
                 $tmp_usernamereg = filter_input(INPUT_POST, 'username_reg', FILTER_SANITIZE_SPECIAL_CHARS);
                 $tmp_passwordreg = filter_input(INPUT_POST, 'password_reg', FILTER_SANITIZE_SPECIAL_CHARS);
+                
+                $sql = "SELECT * FROM users WHERE username=:username";
+                $stmt = $dbh->prepare($sql);
+                $stmt->bindParam(":username", $tmp_usernamereg);
+                $stmt->execute();
+                $users = $stmt->fetchAll();
+                if(empty($users)){
                 //Skapar sql-fråga och kör den, lägger till användare enligt information från formuläret.
                 $sql = 'INSERT INTO `users`(`username`, `password`) VALUES (:username_reg, :password_reg)';
                 $stmt = $dbh->prepare($sql);
@@ -29,6 +35,10 @@ and open the template in the editor.
                 //Skickar tillbaks till index.php så att man inte råkar registrera fler av samma nvändare
                 header("Location:?");
                 echo "Registrering klar";
+                }
+                else{
+                    echo "Användarnamnet finns redan, vänligen välj något annat!";
+                }
             }
             //Har man fyllt i logga in formuläret körs koden nedan
             if (isset($_POST["username"]) and isset($_POST["password"])) {
@@ -48,19 +58,30 @@ and open the template in the editor.
                     $_SESSION["inloggad"] = array();
                     //Sätter sessionens plats 0 till användarnamnet man loggat in med
                     $_SESSION["inloggad"][0] = $_POST["username"];
+                    $_SESSION["inloggad"][1] = $_POST["password"];
                     header("Location:?");
                 }
             }
             //Finns sessionen körs koden nedan
         } else {
             //Skriver ut vilken användare som är inloggad
-            echo "inloggad som " . $_SESSION["inloggad"][0];
-            //Skapar ett knapp för att logga ut.
-            echo "<form method='POST'>";
-            echo "<input type='hidden' name='loggaut'>";
-            echo "<input type='submit' value='logga ut'>";
-            echo "</form>"; 
-        }
+
+            if ($_SESSION["inloggad"][0] != "admin") {
+                echo "inloggad som " . $_SESSION["inloggad"][0];
+                //Skapar ett knapp för att logga ut.
+                echo "<form method='POST'>";
+                echo "<input type='hidden' name='loggaut'>";
+                echo "<input type='submit' value='logga ut'>";
+                echo "</form>";
+            } else {
+                    echo "inloggad som ADMINISTRATÖR";
+                    echo "<form method='POST'>";
+                    echo "<input type='hidden' name='loggaut'>";
+                    echo "<input type='submit' value='logga ut'>";
+                    echo "</form>";
+                }
+            }
+        
         ?>
     </body>
 </html>
