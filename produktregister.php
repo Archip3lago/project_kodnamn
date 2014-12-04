@@ -53,15 +53,13 @@ if (isset($_POST["registrera"])) {
     $tmp_produktmarke = filter_input(INPUT_POST, 'prod_marke', FILTER_SANITIZE_SPECIAL_CHARS);
     $tmp_produkttyp = filter_input(INPUT_POST, 'prod_typ', FILTER_SANITIZE_SPECIAL_CHARS);
     $tmp_produktpris = filter_input(INPUT_POST, 'prod_pris', FILTER_SANITIZE_SPECIAL_CHARS);
+    $sql = 'INSERT INTO `produktregister` (`namn`, `marke`, `typ`, `pris`) VALUES (:prod_namn, :prod_marke, :prod_typ, :prod_pris)';
+    $stmt = $dbh->prepare($sql);
     $stmt->bindParam(":prod_namn", $tmp_produktnamn);
     $stmt->bindParam(":prod_marke", $tmp_produktmarke);
     $stmt->bindParam(":prod_typ", $tmp_produkttyp);
     $stmt->bindParam(":prod_pris", $tmp_produktpris);
-    $sql = 'INSERT INTO `produktregister` (`id`, `namn`, `marke`, `typ`, `pris`) VALUES (NULL, :prod_namn, :prod_marke, :prod_typ, :prod_pris)';
-    $stmt = $dbh->prepare($sql);
     $stmt->execute();
-    
-    header("Location:?");
 }
 
 if (isset($_POST["delete_prod"])) {
@@ -75,7 +73,6 @@ if (isset($_POST["delete_prod"])) {
 }
 
 if (isset($_POST["edit_prod"])) {
-
     $tmp_produktid = $_POST["edit_prod"];
     $sql = 'SELECT FROM `produktregister` WHERE id ="' . $tmp_produktid . '"';
     $stmt = $dbh->prepare($sql);
@@ -91,17 +88,24 @@ if (isset($_POST["edit_prod"])) {
     echo "<input type='text' name='prod_typ' value='$produkt[3]'>";
     echo "<p>Pris</p>";
     echo "<input type='number' name='prod_pris' value='$produkt[4]'>";
+    echo "<input type='hidden' name='id' value='$tmp_produktid'>";
     echo "<input type='submit' value='redigera' name='redigera'>";
     echo "</form>";
-}
-if (isset($_POST["prod_namn"]) and isset($_POST["prod_marke"]) and isset($_POST["prod_typ"]) and isset($_POST["prod_pris"])) {
-    $tmp_produktnamn = filter_input(INPUT_POST, 'prod_namn', FILTER_SANITIZE_SPECIAL_CHARS);
-    $tmp_produktmarke = filter_input(INPUT_POST, 'prod_marke', FILTER_SANITIZE_SPECIAL_CHARS);
-    $tmp_produkttyp = filter_input(INPUT_POST, 'prod_typ', FILTER_SANITIZE_SPECIAL_CHARS);
-    $tmp_produktpris = filter_input(INPUT_POST, 'prod_pris', FILTER_SANITIZE_SPECIAL_CHARS);
 
-    echo $tmp_produktid;
-
-    $sql = 'UPDATE `produktregister` SET `namn`="' . $tmp_produktnamn . '",`märke`="' . $tmp_produktmarke . '",`typ`="' . $tmp_produkttyp . '",`pris`="' . $tmp_produktpris . '" WHERE id="' . $tmp_produktid . '"';
-    header("Location:?");
+   
 }
+ if (isset($_POST["redigera"])) {
+        $upd_produktnamn = filter_input(INPUT_POST, 'prod_namn', FILTER_SANITIZE_SPECIAL_CHARS);
+        $upd_produktmarke = filter_input(INPUT_POST, 'prod_marke', FILTER_SANITIZE_SPECIAL_CHARS);
+        $upd_produkttyp = filter_input(INPUT_POST, 'prod_typ', FILTER_SANITIZE_SPECIAL_CHARS);
+        $upd_produktpris = filter_input(INPUT_POST, 'prod_pris', FILTER_SANITIZE_SPECIAL_CHARS);
+        $upd_produktid = $_POST["id"];
+        $sql = 'UPDATE `produktregister` SET `namn`=:prod_namn,`marke`=:prod_marke,`typ`=:prod_typ,`pris`=:prod_pris WHERE id="'. $upd_produktid .'"';
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":prod_namn", $upd_produktnamn);
+        $stmt->bindParam(":prod_marke", $upd_produktmarke);
+        $stmt->bindParam(":prod_typ", $upd_produkttyp);
+        $stmt->bindParam(":prod_pris", $upd_produktpris);
+        $stmt->execute();
+        header("Location:?");
+    }
