@@ -2,7 +2,7 @@ Login/register - vanlig användare + admin
 Klar
 ___________________________________________
 
-1. Produktregister - sortera med pris + namn + märke + sök + typ(byxor/tröjer) + id
+1. Produktregister - sortera med pris + namn + märke + sök + typ(byxor/tröjer) + id    //sql (JS efteråt)
 
 2. Admin - redigera/ta bort/ lägg till produkter/nyheter
 
