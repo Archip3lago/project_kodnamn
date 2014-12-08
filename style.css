@@ -1,7 +1,18 @@
+*{
+    overflow:auto;
+}
 #login,#reg{
     float:left;
     margin:10px;
 }
 
+#sortby{
+    float:left;
+}
+
+form select{
+    float:left;
+    margin-top:15px;
+}
 
 

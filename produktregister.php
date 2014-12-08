@@ -60,6 +60,8 @@ if (isset($_POST["registrera"])) {
     $stmt->bindParam(":prod_typ", $tmp_produkttyp);
     $stmt->bindParam(":prod_pris", $tmp_produktpris);
     $stmt->execute();
+    
+    header("Location:?");
 }
 
 if (isset($_POST["delete_prod"])) {

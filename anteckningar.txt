@@ -1,10 +1,11 @@
 Login/register - vanlig användare + admin
+2. Admin - redigera/ta bort/ lägg till produkter/(nyheter)
 Klar
 ___________________________________________
 
 1. Produktregister - sortera med pris + namn + märke + sök + typ(byxor/tröjer) + id    //sql (JS efteråt)
 
-2. Admin - redigera/ta bort/ lägg till produkter/nyheter
+
 
 3. Kundvagn - ta bort/ lägg till - se totalt pris
 

@@ -15,24 +15,23 @@
                 //Ser till så att man inte sparar js/css/php/sql kod i databasen och sparar värdena i temporära variabler
                 $tmp_usernamereg = filter_input(INPUT_POST, 'username_reg', FILTER_SANITIZE_SPECIAL_CHARS);
                 $tmp_passwordreg = filter_input(INPUT_POST, 'password_reg', FILTER_SANITIZE_SPECIAL_CHARS);
-                
+
                 $sql = "SELECT * FROM users WHERE username=:username";
                 $stmt = $dbh->prepare($sql);
                 $stmt->bindParam(":username", $tmp_usernamereg);
                 $stmt->execute();
                 $users = $stmt->fetchAll();
-                if(empty($users)){
-                //Skapar sql-fråga och kör den, lägger till användare enligt information från formuläret.
-                $sql = 'INSERT INTO `users`(`username`, `password`) VALUES (:username_reg, :password_reg)';
-                $stmt = $dbh->prepare($sql);
-                $stmt->bindParam(":username_reg", $tmp_usernamereg);
-                $stmt->bindParam(":password_reg", $tmp_passwordreg);
-                $stmt->execute();
-                //Skickar tillbaks till index.php så att man inte råkar registrera fler av samma nvändare
-                header("Location:?");
-                echo "Registrering klar";
-                }
-                else{
+                if (empty($users)) {
+                    //Skapar sql-fråga och kör den, lägger till användare enligt information från formuläret.
+                    $sql = 'INSERT INTO `users`(`username`, `password`) VALUES (:username_reg, :password_reg)';
+                    $stmt = $dbh->prepare($sql);
+                    $stmt->bindParam(":username_reg", $tmp_usernamereg);
+                    $stmt->bindParam(":password_reg", $tmp_passwordreg);
+                    $stmt->execute();
+                    //Skickar tillbaks till index.php så att man inte råkar registrera fler av samma nvändare
+                    header("Location:?");
+                    echo "Registrering klar";
+                } else {
                     echo "Användarnamnet finns redan, vänligen välj något annat!";
                 }
             }
@@ -69,16 +68,19 @@
                 echo "<input type='hidden' name='loggaut'>";
                 echo "<input type='submit' value='logga ut'>";
                 echo "</form>";
+                
+                include 'sort.php';
+
+                
             } else {
-                    echo "inloggad som ADMINISTRATÖR";
-                    echo "<form method='POST'>";
-                    echo "<input type='hidden' name='loggaut'>";
-                    echo "<input type='submit' value='logga ut'>";
-                    echo "</form>";
-                    include 'produktregister.php';
-                }
+                echo "inloggad som ADMINISTRATÖR";
+                echo "<form method='POST'>";
+                echo "<input type='hidden' name='loggaut'>";
+                echo "<input type='submit' value='logga ut'>";
+                echo "</form>";
+                include 'produktregister.php';
             }
-        
+        }
         ?>
     </body>
 </html>
