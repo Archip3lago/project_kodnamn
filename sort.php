@@ -23,14 +23,15 @@ if (!isset($_POST["sort"])) {
         echo "<td>" . $produkt[2] . "</td>"; //märke
         echo "<td>" . $produkt[3] . "</td>"; //typ
         echo "<td>" . $produkt[4] . "</td>"; //pris
-        echo "<td> <input type='submit' value='add_kundvagn' name='add'></td>";
+        echo "<form method='GET'>";
+        echo "<td> <input type='submit' value='add' name='add_kundvagn'></td>";
+        echo "<input type='hidden' value='". $produkt[0] ."' name='id'>";
+        echo "</form>";
         echo "</tr>";
     }
     
     echo"</table>";
-    
- 
-
+   
 echo "<p id = 'sortby'>sort by:</p>";
 echo "<form method = 'POST'>";
 
@@ -50,16 +51,6 @@ echo "</select>";
 echo "<input type = 'submit' value = 'sortby' name = 'submit'>";
 echo "</form >";
 
+include 'kundvagn.php';
 
-if (isset($_POST["sort_namn"])) {
-    
-}
-
-if (isset($_POST["sort_typ"])) {
-    
-}
-
-if (isset($_POST["sort_marke"])) {
-    
-}
 ?>

@@ -1,8 +1,21 @@
 <?php
+    if(isset($_SESSION["kundvagn"])){
+        foreach ($_SESSION["kundvagn"] as $prod) {
+            echo $prod[2];
+            echo $prod[3];
+            echo $prod[4];
+            echo $prod[5];
+        }
+    }
+  
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
+
+if(isset($_GET["add_kundvagn"])){
+    if(!isset($_SESSION["kundvagn"])){
+        $_SESSION["kundvagn"];
+    }
+        $tmp_prodid = $_GET["id"];
+        $cartArray[] = $tmp_prodkundvagn;
+       
+    }
