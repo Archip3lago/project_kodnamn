@@ -9,7 +9,7 @@ if (isset($_SESSION["kundvagn"])) {
         echo $prod["antal"] . "\t" . $prod["namn"] . "\t" . $prod["marke"] . "\t" . $prod["typ"] . "\t" . $prod["pris"] . " :-<br><br>";
         $totPris += $prod["pris"] * $prod["antal"];
     }
-    echo "Totalt: " . $totPris . " :-";
+    echo "Totalt: " . $totPris . " :- <br>";
 } else {
     $_SESSION["kundvagn"] = array();
 }

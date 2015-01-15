@@ -70,6 +70,8 @@
                 echo "</form>";
                 
                 include 'sort.php';
+                
+                include 'nyhet_user.php';
 
                 
             } else {
@@ -79,6 +81,8 @@
                 echo "<input type='submit' value='logga ut'>";
                 echo "</form>";
                 include 'produktregister.php';
+                include 'nyhet_admin.php';
+                
             }
         }
         ?>
